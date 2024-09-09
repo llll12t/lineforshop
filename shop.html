@@ -120,35 +120,40 @@
         </div>
     </div>
 
-    <!-- Cart View -->
-    <div id="cart-view" class="max-w-md mx-auto pt-20 hidden">
-        <div class=" bg-white rounded-lg p-4">
-            <!-- Cart Header -->
-            <div class="fixed top-0 left-0 w-full bg-white shadow z-50">
-                <div class="flex justify-between items-center p-4">
-                    <h2 class="text-md font-semibold">ตะกร้าสินค้า</h2>
-                    <div id="back-to-products"
-                        class="bg-white opacitywhite text-center font-bold py-2 w-36 border rounded-lg">กลับ ร้านค้า
-                    </div>
-                </div>
-            </div>
-
-            <div id="cart-items" class="bg-white rounded-lg"></div>
-            <div class="pt-4">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm ">บริการจัดส่ง</span>
-                    <span class="text-md text-gray-400">50 บาท</span>
-                </div>
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-md font-semibold">ราคารวม</span>
-                    <span id="total-price" class="text-lg text-amber-600 font-semibold">0.00 บาท</span>
-                </div>
-
-                <button id="go-to-shipping"
-                    class="w-full bg-slate-800 text-white p-4 rounded-lg font-semibold hidden">ถัดไป</button>
+<!-- Cart View -->
+<div id="cart-view" class="max-w-md mx-auto pt-20 hidden">
+    <div class="bg-white rounded-lg p-4 shadow-lg">
+        <!-- Cart Header -->
+        <div class="fixed top-0 left-0 w-full bg-white shadow z-50">
+            <div class="flex justify-between items-center p-4">
+                <h2 class="text-md font-semibold text-gray-900">ตะกร้าสินค้า</h2>
+                <button id="back-to-products"
+                    class="bg-white text-center font-bold py-2 w-36 border rounded-lg text-slate-700 hover:bg-slate-100">
+                    กลับ ร้านค้า
+                </button>
             </div>
         </div>
+
+        <div id="cart-items" class="bg-white rounded-lg mt-12"></div>
+
+        <div class="mt-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-sm font-medium text-gray-600">บริการจัดส่ง</span>
+                <span class="text-md font-semibold text-blue-600">50 บาท</span>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-semibold">ราคารวม</span>
+                <span id="total-price" class="text-xl text-amber-600 font-semibold">0.00 บาท</span>
+            </div>
+
+            <button id="go-to-shipping"
+                class="w-full bg-blue-600 text-white p-4 rounded-lg font-semibold hover:bg-blue-700 transition-all hidden">
+                ถัดไป
+            </button>
+        </div>
     </div>
+</div>
+
 
     <!-- Shipping Info -->
     <div id="shipping-info" class="max-w-md mx-auto pt-20 hidden">
