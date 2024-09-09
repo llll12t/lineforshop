@@ -369,7 +369,7 @@
 
         // สร้าง HTML ของสินค้าแต่ละชิ้น
         function createProductHtml(product) {
-            let sizeOptions = '<option value="ไซต์">ไซต์</option>';
+            let sizeOptions = '<option value="">กรุณาเลือกไซต์</option>'; // เพิ่มตัวเลือกเริ่มต้นเป็น "กรุณาเลือกไซต์"
             const sizeKeys = ['FS', 'S', 'M', 'L', 'XL', 'XXL'];
 
             sizeKeys.forEach(size => {
@@ -377,11 +377,6 @@
                     sizeOptions += `<option value="${size}">${size} (${product[size]})</option>`;
                 }
             });
-
-            if (!sizeOptions) {
-                console.error("ไม่มีขนาดสินค้าที่สามารถใช้ได้:", product);
-                return ''; // หากไม่มีขนาดที่พร้อมใช้งาน ให้คืนค่าที่ว่างเปล่า
-            }
 
             return `
                 <div class="bg-slate-100 p-3 flex flex-col rounded-lg relative">
@@ -403,6 +398,7 @@
                 </div>
             `;
         }
+
 
         // เพิ่มสินค้าในตะกร้า
         function addToCart(event) {
