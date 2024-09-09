@@ -428,52 +428,57 @@
         }
 
         function addToCart(event) {
-            const productId = event.target.dataset.id;
-            const products = JSON.parse(localStorage.getItem('products'));
-            const product = products.find(p => p.id === productId);
+    const productId = event.target.dataset.id;
+    const products = JSON.parse(localStorage.getItem('products'));
+    const product = products.find(p => p.id === productId);
 
-            if (!product) {
-                console.error(`Product with ID ${productId} not found.`);
-                return;
-            }
+    if (!product) {
+        console.error(`Product with ID ${productId} not found.`);
+        return;
+    }
 
-            const sizeElement = document.querySelector(`.product-size[data-id="${productId}"]`);
-            if (!sizeElement) {
-                console.error(`Size element not found for product ID: ${productId}`);
-                return;
-            }
+    const sizeElement = document.querySelector(`.product-size[data-id="${productId}"]`);
+    if (!sizeElement) {
+        console.error(`Size element not found for product ID: ${productId}`);
+        return;
+    }
 
-            const size = sizeElement.value.split(' ')[0]; // Extract the size part
-            if (!size) {
-                alert('กรุณาเลือกขนาดสินค้าก่อน');
-                return;
-            }
+    const size = sizeElement.value.split(' ')[0]; // Extract the size part
+    if (!size) {
+        // เปลี่ยน border ของ dropdown เป็นสีแดงเมื่อไม่ได้เลือกไซต์
+        sizeElement.style.border = "2px solid red";
+        return;
+    }
 
-            const quantity = 1; // Default quantity to 1
+    // หากเลือกไซต์แล้ว ให้คืนค่า border กลับเป็นปกติ
+    sizeElement.style.border = "";
 
-            if (product[size] < quantity) {
-                alert('สินค้าในขนาดนี้หมดแล้ว');
-                return;
-            }
+    const quantity = 1; // Default quantity to 1
 
-            product[size] -= quantity;
+    if (product[size] < quantity) {
+        alert('สินค้าในขนาดนี้หมดแล้ว');
+        return;
+    }
 
-            const productInCart = cart.find(item => item.id === productId && item.size === size);
-            if (productInCart) {
-                productInCart.quantity += quantity;
-            } else {
-                cart.push({ ...product, size, quantity });
-            }
+    product[size] -= quantity;
 
-            updateCartCount();
-            renderProducts(products); // Re-render products to update stock display
+    const productInCart = cart.find(item => item.id === productId && item.size === size);
+    if (productInCart) {
+        productInCart.quantity += quantity;
+    } else {
+        cart.push({ ...product, size, quantity });
+    }
 
-            // Trigger animation
-            goToCartBtn.classList.add('added-to-cart');
-            setTimeout(() => {
-                goToCartBtn.classList.remove('added-to-cart');
-            }, 500);
-        }
+    updateCartCount();
+    renderProducts(products); // Re-render products to update stock display
+
+    // Trigger animation
+    goToCartBtn.classList.add('added-to-cart');
+    setTimeout(() => {
+        goToCartBtn.classList.remove('added-to-cart');
+    }, 500);
+}
+
 
         function updateCartCount() {
             const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
