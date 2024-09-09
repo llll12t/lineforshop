@@ -10,7 +10,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
-        /* เอฟเฟกต์การเพิ่มลงในตะกร้า */
         @keyframes add-to-cart {
             0% {
                 transform: scale(1);
@@ -29,7 +28,6 @@
             animation: add-to-cart 0.5s ease-in-out;
         }
 
-        /* แอนิเมชันข้อความโหลดสินค้า */
         @keyframes loading-text {
             0% {
                 content: "โหลด..รายการสินค้า";
@@ -56,9 +54,9 @@
 </head>
 
 <body class="bg-slate-300" style="font-family: Noto Sans Thai;">
-    <!-- ส่วนเลือกสินค้า -->
+    <!-- Product Selection -->
     <div id="product-selection" class="max-w-md mx-auto pt-20">
-        <div class="p-4 rounded-lg">
+        <div class=" p-4 rounded-lg">
             <div class="fixed top-0 left-0 w-full bg-white shadow z-50">
                 <div class="flex justify-between items-center p-4">
                     <div class="flex items-center">
@@ -68,14 +66,14 @@
                         </div>
                         <div class="pl-4">
                             <p class="text-slate-400 text-xs">ยินดีต้อนรับ</p>
-                            <input type="text" class="input-field bg-slate-800 w-32 text-slate-800 text-lg font-bold bg-opacity-0"
+                            <input type="text"
+                                class="input-field bg-slate-800 w-32 text-slate-800 text-lg font-bold bg-opacity-0"
                                 id="displayName" name="displayName" readonly>
                         </div>
                     </div>
                     <div class="flex items-center">
                         <p class="bg-lime-200 mx-1 rounded-lg w-full max-w-24 p-2 text-slate-800 text-md font-bold flex items-center gap-2"
                             id="userPoints">
-                            <!-- ไอคอนคะแนน -->
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
                                 color="#000000" fill="none">
                                 <path
@@ -88,11 +86,12 @@
                             </svg>
                             0
                         </p>
-                        <!-- ปุ่มดูตะกร้าสินค้า -->
-                        <button id="go-to-cart" class="bg-slate-800 text-white text-md py-2 px-4 flex items-center gap-2 rounded-lg ml-4">
+                        <button id="go-to-cart"
+                            class="bg-slate-800 text-white text-md py-2 px-4 flex items-center gap-2 rounded-lg ml-4">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
                                 color="#ffffff" fill="none">
-                                <path d="M11.5 8H20.196C20.8208 8 21.1332 8 21.3619 8.10084C22.3736 8.5469 21.9213 9.67075 21.7511 10.4784C21.7205 10.6235 21.621 10.747 21.4816 10.8132C20.9033 11.0876 20.4982 11.6081 20.3919 12.2134L19.7993 15.5878C19.5386 17.0725 19.4495 19.1943 18.1484 20.2402C17.1938 21 15.8184 21 13.0675 21H10.9325C8.18162 21 6.8062 21 5.8516 20.2402C4.55052 19.1942 4.46138 17.0725 4.20066 15.5878L3.60807 12.2134C3.50177 11.6081 3.09673 11.0876 2.51841 10.8132C2.37896 10.747 2.27952 10.6235 2.24894 10.4784C2.07874 9.67075 1.6264 8.5469 2.63812 8.10084C2.86684 8 3.17922 8 3.80397 8H7.5"
+                                <path
+                                    d="M11.5 8H20.196C20.8208 8 21.1332 8 21.3619 8.10084C22.3736 8.5469 21.9213 9.67075 21.7511 10.4784C21.7205 10.6235 21.621 10.747 21.4816 10.8132C20.9033 11.0876 20.4982 11.6081 20.3919 12.2134L19.7993 15.5878C19.5386 17.0725 19.4495 19.1943 18.1484 20.2402C17.1938 21 15.8184 21 13.0675 21H10.9325C8.18162 21 6.8062 21 5.8516 20.2402C4.55052 19.1942 4.46138 17.0725 4.20066 15.5878L3.60807 12.2134C3.50177 11.6081 3.09673 11.0876 2.51841 10.8132C2.37896 10.747 2.27952 10.6235 2.24894 10.4784C2.07874 9.67075 1.6264 8.5469 2.63812 8.10084C2.86684 8 3.17922 8 3.80397 8H7.5"
                                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                                 <path d="M14 12L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
@@ -104,15 +103,16 @@
                     </div>
                 </div>
             </div>
+            
 
-            <!-- ส่วนสินค้า -->
             <div>
                 <div class="flex">
                     <div id="tab-nav" class="flex overflow-x-auto space-x-4 py-2">
-                        <!-- ปุ่ม Tab หมวดหมู่ -->
+                        <!-- Tab buttons will be inserted here -->
                     </div>
                 </div>
-                <div id="product-list" class="text-center"></div>
+                <div id="product-list" class="text-center">
+                </div>
                 <div id="load-more-container" class="text-center mt-4 hidden">
                     <button id="load-more" class="bg-red-white px-4 py-2 rounded-lg">เพิ่มเติม</button>
                 </div>
@@ -120,20 +120,23 @@
         </div>
     </div>
 
-    <!-- ส่วนตะกร้าสินค้า -->
+    <!-- Cart View -->
     <div id="cart-view" class="max-w-md mx-auto pt-20 hidden">
-        <div class="bg-white rounded-lg p-4">
+        <div class=" bg-white rounded-lg p-4">
+            <!-- Cart Header -->
             <div class="fixed top-0 left-0 w-full bg-white shadow z-50">
                 <div class="flex justify-between items-center p-4">
                     <h2 class="text-md font-semibold">ตะกร้าสินค้า</h2>
-                    <div id="back-to-products" class="bg-white text-center font-bold py-2 w-36 border rounded-lg">กลับ ร้านค้า</div>
+                    <div id="back-to-products"
+                        class="bg-white opacitywhite text-center font-bold py-2 w-36 border rounded-lg">กลับ ร้านค้า
+                    </div>
                 </div>
             </div>
 
             <div id="cart-items" class="bg-white rounded-lg"></div>
             <div class="pt-4">
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm">บริการจัดส่ง</span>
+                    <span class="text-sm ">บริการจัดส่ง</span>
                     <span class="text-md text-gray-400">50 บาท</span>
                 </div>
                 <div class="flex justify-between items-center mb-4">
@@ -141,18 +144,23 @@
                     <span id="total-price" class="text-lg text-amber-600 font-semibold">0.00 บาท</span>
                 </div>
 
-                <button id="go-to-shipping" class="w-full bg-slate-800 text-white p-4 rounded-lg font-semibold hidden">ถัดไป</button>
+                <button id="go-to-shipping"
+                    class="w-full bg-slate-800 text-white p-4 rounded-lg font-semibold hidden">ถัดไป</button>
             </div>
         </div>
     </div>
 
-    <!-- ส่วนข้อมูลการจัดส่ง -->
+    <!-- Shipping Info -->
     <div id="shipping-info" class="max-w-md mx-auto pt-20 hidden">
         <div class="p-4">
+            <!-- Shipping Header -->
             <div class="fixed top-0 left-0 w-full bg-white shadow z-50">
+                <!-- เพิ่ม margin-top เพื่อให้ไม่ทับกับ header อื่น -->
                 <div class="flex justify-between items-center p-4">
                     <h2 class="text-md font-semibold">การจัดส่ง</h2>
-                    <button id="back-to-cart" class="bg-white text-center font-bold py-2 w-36 border rounded-lg">กลับ ตะกร้าสินค้า</button>
+                    <button id="back-to-cart"
+                        class="bg-white opacitywhite text-center font-bold py-2 w-36 border rounded-lg">กลับ
+                        ตะกร้าสินค้า</button>
                 </div>
             </div>
             <form id="shipping-form">
@@ -163,20 +171,25 @@
                 <div id="form-container">
                     <div class="mb-4">
                         <label for="username" class="block text-gray-700">ชื่อ:</label>
-                        <input type="text" id="username" placeholder="Name" class="block w-full mb-2 p-2 border rounded-lg" />
+                        <input type="text" id="username" placeholder="Name"
+                            class="block w-full mb-2 p-2 border rounded-lg" />
                     </div>
                     <div class="mb-4">
                         <label for="contact" class="block text-gray-700">เบอร์ติดต่อ:</label>
-                        <input type="text" id="contact" placeholder="Contact" class="block w-full mb-2 p-2 border rounded-lg" />
+                        <input type="text" id="contact" placeholder="Contact"
+                            class="block w-full mb-2 p-2 border rounded-lg" />
                     </div>
                     <div class="mb-4">
                         <label for="address" class="block text-gray-700">ที่อยู่:</label>
                         <textarea id="address" placeholder="Address" class="block w-full mb-2 p-2 border rounded-lg"
                             style="height: 150px;"></textarea>
+
                     </div>
+
                     <div class="mb-4">
                         <input type="checkbox" id="save-info" class="mr-2">
-                        <label for="save-info" class="text-gray-700">บันทึกชื่อและที่อยู่สำหรับการใช้งานครั้งถัดไป</label>
+                        <label for="save-info"
+                            class="text-gray-700">บันทึกชื่อและที่อยู่สำหรับการใช้งานครั้งถัดไป</label>
                     </div>
                     <input type="hidden" id="userlineid" name="userlineid">
                 </div>
@@ -185,13 +198,13 @@
         </div>
     </div>
 
-    <!-- Modal แสดงรายละเอียดคำสั่งซื้อ -->
-    <div id="order-details-modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="fixed z-10 inset-0 overflow-y-auto hidden ">
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
-            <div class="rounded-lg overflow-hidden transform transition-all w-full">
+            <div class=" rounded-lg overflow-hidden  transform transition-all w-full">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">รายละเอียดสั่งซื้อ</h3>
                     <div class="mt-2">
@@ -204,13 +217,14 @@
                     <button id="close-modal"
                         class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300  px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">ยกเลิก</button>
                         <div id="order-status" class="px-4 py-3 sm:px-6 text-center text-sm hidden"></div>
-                </div>
+
+                    </div>
             </div>
         </div>
     </div>
 
     <script>
-        const url = "https://script.google.com/macros/s/AKfycbyuz1I1AaFIpEtKlQuQNld9ue8BHbKzlPy5YQXpAeyomC979SYd0-jpzhthUF456ctxGw/exec"; // URL ดึงข้อมูลจากเซิร์ฟเวอร์
+        const url = "https://script.google.com/macros/s/AKfycbyuz1I1AaFIpEtKlQuQNld9ue8BHbKzlPy5YQXpAeyomC979SYd0-jpzhthUF456ctxGw/exec"; // Replace with your Web App URL
         let cart = [];
         let currentOrder = null;
         let currentTab = '';
@@ -237,10 +251,24 @@
         const loadMoreBtn = document.getElementById('load-more');
         const loadMoreContainer = document.getElementById('load-more-container');
 
-        // ดึงข้อมูลสินค้าและแสดงในหน้าเว็บ
+        // Define the shipping cost product with dynamic pricing
+        const shippingCostProduct = {
+            id: 'A00000',
+            name: 'ค่าจัดส่ง',
+            Price: 5, // This can be set to any value, including 0
+            size: 'ทั่วไป',
+            quantity: 1,
+            'img-product': 'https://via.placeholder.com/40?text=Ship' // Placeholder image for shipping
+        };
+
+        // Function to set the shipping cost dynamically
+        function setShippingCost(price) {
+            shippingCostProduct.Price = price;
+        }
+
         async function fetchProducts() {
             const loadingText = document.createElement('div');
-            loadingText.className = 'loading-animation text-md text-slate-700';
+            loadingText.className = 'loading-animation text-md  text-slate-700';
             productList.appendChild(loadingText);
 
             try {
@@ -249,31 +277,30 @@
                 const products = await response.json();
 
                 if (!products || products.length === 0) {
-                    console.error("ไม่พบข้อมูลสินค้า");
+                    console.error("No products data received.");
                     return;
                 }
 
                 localStorage.setItem('products', JSON.stringify(products));
-                currentTab = getFirstCategory(products); // ตั้งค่าหมวดหมู่แรกเป็นค่าเริ่มต้น
+                currentTab = getFirstCategory(products); // Set the first category as the default tab
                 renderProducts(products);
                 renderTabs(products);
             } catch (error) {
-                console.error('เกิดข้อผิดพลาดในการดึงข้อมูลสินค้า:', error);
+                console.error('Error fetching products:', error);
             } finally {
                 productList.removeChild(loadingText);
             }
         }
 
-        // ดึงหมวดหมู่แรกจากสินค้า
         function getFirstCategory(products) {
             const categories = [...new Set(products.map(product => product.category || 'Uncategorized'))];
             return categories[0];
         }
 
-        // แสดงปุ่ม Tab หมวดหมู่สินค้า
         function renderTabs(products) {
             tabNav.innerHTML = '';
             let categories = [...new Set(products.map(product => product.category || 'Uncategorized'))];
+            categories = categories.filter(category => category !== 'All');
             categories.push('All');
 
             const tabContainer = document.createElement('div');
@@ -281,7 +308,7 @@
 
             categories.forEach(category => {
                 const tabButton = document.createElement('button');
-                tabButton.classList.add('flex-shrink-0', 'px-1', 'py-1', 'pr-2', 'rounded-lg', 'focus:outline-none', 'flex', 'border', 'border-lime-200', 'items-center', 'justify-start', 'space-x-2');
+                tabButton.classList.add('flex-shrink-0', 'px-1', 'py-1', 'pr-2', 'rounded-lg', 'focus:outline-none', 'flex', 'border','border-lime-200', 'items-center', 'justify-start', 'space-x-2' );
 
                 if (category === currentTab) {
                     tabButton.classList.add('active', 'bg-lime-200', 'text-black');
@@ -306,16 +333,14 @@
             tabNav.appendChild(tabContainer);
         }
 
-        // ดึงภาพหมวดหมู่สินค้า
         function getCategoryImage(category, products) {
             if (category === 'All') {
-                return 'https://via.placeholder.com/40?text=All'; // Placeholder ภาพสำหรับหมวดหมู่ All
+                return 'https://via.placeholder.com/40?text=All'; // Placeholder image for 'All' category
             }
             const product = products.find(p => p.category === category);
-            return product ? product['img-product'] : 'https://via.placeholder.com/40?text=Other'; // Placeholder ภาพสำหรับหมวดหมู่อื่นๆ
+            return product ? product['img-product'] : 'https://via.placeholder.com/40?text=Other'; // Placeholder image for other categories
         }
 
-        // เปลี่ยนหมวดหมู่สินค้าเมื่อคลิก Tab
         function switchTab(category) {
             currentTab = category;
             currentPage = 0;
@@ -324,7 +349,6 @@
             renderTabs(products);
         }
 
-        // แสดงสินค้าตามหมวดหมู่ที่เลือก
         function renderProducts(products) {
             productList.innerHTML = '';
             const filteredProducts = currentTab === 'All' ? products : products.filter(product => product.category === currentTab);
@@ -367,9 +391,8 @@
             renderProducts(products);
         });
 
-        // สร้าง HTML ของสินค้าแต่ละชิ้น
         function createProductHtml(product) {
-            let sizeOptions = '<option value="">กรุณาเลือกไซต์</option>'; // เพิ่มตัวเลือกเริ่มต้นเป็น "กรุณาเลือกไซต์"
+            let sizeOptions = '';
             const sizeKeys = ['FS', 'S', 'M', 'L', 'XL', 'XXL'];
 
             sizeKeys.forEach(size => {
@@ -378,11 +401,16 @@
                 }
             });
 
+            if (!sizeOptions) {
+                console.error("No sizes available for product:", product);
+                return ''; // หากไม่มีขนาดที่พร้อมใช้งาน ให้คืนค่าที่ว่างเปล่า
+            }
+
             return `
-                <div class="bg-slate-100 p-3 flex flex-col rounded-lg relative">
+                <div class="bg-slate-100 p-3 flex flex-col rounded-lg  relative">
                     <div class="relative">
                         <img src="${product['img-product']}" alt="${product.name}" class="w-full h-40 object-cover rounded-lg">
-                        <div class="absolute top-0 right-0 bg-slate-800 text-white py-1 px-2 rounded-bl-lg rounded-tr-lg">
+                        <div class="absolute top-0 right-0 bg-slate-800 text-white py-1  px-2 rounded-bl-lg rounded-tr-lg">
                             ${product.Price} บาท
                         </div>
                     </div>
@@ -393,42 +421,35 @@
                         <select class="bg-white p-1 rounded-lg product-size" data-id="${product.id}" style="width: 60%;">
                             ${sizeOptions}
                         </select>
-                        <button class="bg-lime-200 text-black p-2 rounded-lg focus:outline-none focus:ring-2 add-to-cart" data-id="${product.id}" style="width: 35%;">ซื้อ</button>
+                        <button class="bg-lime-200 text-black p-2 rounded-lg  focus:outline-none focus:ring-2 add-to-cart" data-id="${product.id}" style="width: 35%;">ซื้อ</button>
                     </div>
                 </div>
             `;
         }
 
-
-        // เพิ่มสินค้าในตะกร้า
         function addToCart(event) {
             const productId = event.target.dataset.id;
             const products = JSON.parse(localStorage.getItem('products'));
             const product = products.find(p => p.id === productId);
 
             if (!product) {
-                console.error(`ไม่พบสินค้า ID ${productId}`);
+                console.error(`Product with ID ${productId} not found.`);
                 return;
             }
 
             const sizeElement = document.querySelector(`.product-size[data-id="${productId}"]`);
             if (!sizeElement) {
-                console.error(`ไม่พบส่วนเลือกไซต์สำหรับสินค้า ID: ${productId}`);
+                console.error(`Size element not found for product ID: ${productId}`);
                 return;
             }
 
-            const size = sizeElement.value.split(' ')[0]; // รับค่าไซต์จากผู้ใช้
-            if (size === "ไซต์") {  // ถ้าผู้ใช้ยังไม่ได้เลือกไซต์
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'กรุณาเลือกไซต์',
-                    text: 'กรุณาเลือกไซต์สินค้าก่อนทำการซื้อ',
-                    confirmButtonText: 'ตกลง'
-                });
+            const size = sizeElement.value.split(' ')[0]; // Extract the size part
+            if (!size) {
+                alert('กรุณาเลือกขนาดสินค้าก่อน');
                 return;
             }
 
-            const quantity = 1; // จำนวนเริ่มต้นของสินค้า
+            const quantity = 1; // Default quantity to 1
 
             if (product[size] < quantity) {
                 alert('สินค้าในขนาดนี้หมดแล้ว');
@@ -445,42 +466,65 @@
             }
 
             updateCartCount();
-            renderProducts(products); // แสดงผลสินค้าใหม่เพื่ออัปเดตสต็อกสินค้า
+            renderProducts(products); // Re-render products to update stock display
 
-            // แสดงเอฟเฟกต์เพิ่มลงในตะกร้า
+            // Trigger animation
             goToCartBtn.classList.add('added-to-cart');
             setTimeout(() => {
                 goToCartBtn.classList.remove('added-to-cart');
             }, 500);
         }
 
-        // อัปเดตจำนวนสินค้ารวมในตะกร้า
         function updateCartCount() {
             const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-            goToCartBtn.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" color="#ffffff" fill="none">
-                    <path d="M11.5 8H20.196C20.8208 8 21.1332 8 21.3619 8.10084C22.3736 8.5469 21.9213 9.67075 21.7511 10.4784C21.7205 10.6235 21.621 10.747 21.4816 10.8132C20.9033 11.0876 20.4982 11.6081 20.3919 12.2134L19.7993 15.5878C19.5386 17.0725 19.4495 19.1943 18.1484 20.2402C17.1938 21 15.8184 21 13.0675 21H10.9325C8.18162 21 6.8062 21 5.8516 20.2402C4.55052 19.1942 4.46138 17.0725 4.20066 15.5878L3.60807 12.2134C3.50177 11.6081 3.09673 11.0876 2.51841 10.8132C2.37896 10.747 2.27952 10.6235 2.24894 10.4784C2.07874 9.67075 1.6264 8.5469 2.63812 8.10084C2.86684 8 3.17922 8 3.80397 8H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                    <path d="M14 12L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M6.5 11L10 3M15 3L17.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg> ${cartCount}`;
+            goToCartBtn.innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" color="#ffffff" fill="none">
+                                <path d="M11.5 8H20.196C20.8208 8 21.1332 8 21.3619 8.10084C22.3736 8.5469 21.9213 9.67075 21.7511 10.4784C21.7205 10.6235 21.621 10.747 21.4816 10.8132C20.9033 11.0876 20.4982 11.6081 20.3919 12.2134L19.7993 15.5878C19.5386 17.0725 19.4495 19.1943 18.1484 20.2402C17.1938 21 15.8184 21 13.0675 21H10.9325C8.18162 21 6.8062 21 5.8516 20.2402C4.55052 19.1942 4.46138 17.0725 4.20066 15.5878L3.60807 12.2134C3.50177 11.6081 3.09673 11.0876 2.51841 10.8132C2.37896 10.747 2.27952 10.6235 2.24894 10.4784C2.07874 9.67075 1.6264 8.5469 2.63812 8.10084C2.86684 8 3.17922 8 3.80397 8H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M14 12L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M6.5 11L10 3M15 3L17.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            </svg> ${cartCount}`;
         }
 
-        // แสดงตะกร้าสินค้า
+
+        // Function to add shipping cost to the cart if not already added
+        function addShippingCost() {
+            if (shippingCostProduct.Price > 0) {
+                const shippingItemInCart = cart.find(item => item.id === shippingCostProduct.id);
+                if (!shippingItemInCart) {
+                    cart.push({ ...shippingCostProduct });
+                }
+            } else {
+                removeShippingCost(); // Remove shipping cost if the price is set to 0
+            }
+        }
+
+        // Function to remove shipping cost from the cart
+        function removeShippingCost() {
+            const shippingIndex = cart.findIndex(item => item.id === shippingCostProduct.id);
+            if (shippingIndex > -1) {
+                cart.splice(shippingIndex, 1);
+            }
+        }
+
+        // Modify the showCart function to include shipping cost if applicable
         function showCart() {
+            addShippingCost(); // Ensure shipping cost is added to the cart if applicable
             productSelection.classList.add('hidden');
             cartView.classList.remove('hidden');
             renderCart();
         }
 
-        // แสดงสินค้าในตะกร้า
+        // Modify the renderCart function to exclude the display of the shipping cost item
         function renderCart() {
             cartItems.innerHTML = '';
             cart.forEach((item, index) => {
+                // Skip rendering the shipping cost item
+                if (item.id === shippingCostProduct.id) return;
+
                 const cartItemEl = document.createElement('div');
                 cartItemEl.classList.add('flex', 'items-center', 'justify-between', 'border-b', 'p-2');
 
                 cartItemEl.innerHTML = `
-                    <img src="${item['img-product']}" alt="${item.name}" class="w-20 h-20 rounded-lg mr-4">
+                    <img src="${item['img-product']}" alt="${item.name}" class="w-20 h-20  rounded-lg mr-4">
                     <div class="flex-1">
                         <h3 class="text-md font-semibold">${item.name}</h3>
                         <p class="text-gray-600">Size: ${item.size}</p>
@@ -497,14 +541,12 @@
             updateTotalPrice();
         }
 
-        // เพิ่มจำนวนสินค้าในตะกร้า
         function increment(index) {
             cart[index].quantity += 1;
             renderCart();
             updateCartCount();
         }
 
-        // ลดจำนวนสินค้าในตะกร้า
         function decrement(index) {
             if (cart[index].quantity > 1) {
                 cart[index].quantity -= 1;
@@ -515,20 +557,18 @@
             updateCartCount();
         }
 
-        // อัปเดตราคารวมในตะกร้า
+        // Modify the updateTotalPrice function to include the shipping cost if applicable
         function updateTotalPrice() {
             const totalPrice = cart.reduce((total, item) => total + (item.Price * item.quantity), 0);
             totalPriceEl.textContent = `${totalPrice.toFixed(2)} บาท`;
             goToShippingBtn.classList.toggle('hidden', totalPrice === 0);
         }
 
-        // แสดงหน้าข้อมูลจัดส่ง
         function showShippingInfo() {
             cartView.classList.add('hidden');
             shippingInfo.classList.remove('hidden');
         }
 
-        // กลับไปหน้าตะกร้า
         function backToCart() {
             shippingInfo.classList.add('hidden');
             cartView.classList.remove('hidden');
@@ -536,7 +576,7 @@
 
         shippingForm.addEventListener('submit', handleShippingFormSubmit);
 
-        // ส่งข้อมูลคำสั่งซื้อ
+        // Modify the handleShippingFormSubmit function to ensure shipping cost is included
         function handleShippingFormSubmit(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
@@ -544,6 +584,9 @@
             const contact = document.getElementById('contact').value;
             const userlineid = document.getElementById('userlineid').value;
             const saveInfo = document.getElementById('save-info').checked;
+
+            // Ensure shipping cost is included before finalizing order
+            addShippingCost();
 
             const order = {
                 username,
@@ -555,15 +598,15 @@
                 saveInfo
             };
 
+
             currentOrder = order;
             orderDetailsContent.innerHTML = renderOrderDetails(order);
             orderDetailsModal.classList.remove('hidden');
         }
 
-        // แสดงรายละเอียดคำสั่งซื้อ
         function renderOrderDetails(order) {
             const itemsHtml = order.items.map(item => `
-                <div class="flex justify-between items-center my-2">
+                <div class="flex justify-between items-center  my-2">
                     <div>
                         <p class="text-sm font-medium">${item.name} (${item.size})</p>
                         <p class="text-xs text-gray-500">ราคา: ${item.Price} บาท</p>
@@ -588,7 +631,6 @@
             `;
         }
 
-        // บันทึกข้อมูลคำสั่งซื้อไปยังเซิร์ฟเวอร์
         async function saveOrder(order) {
             orderStatusEl.classList.remove('hidden');
             orderStatusEl.textContent = 'กำลังบันทึกคำสั่งซื้อของคุณ...🛒';
@@ -598,68 +640,10 @@
             });
             const result = await response.text();
             orderStatusEl.textContent = result;
+            console.log(result);
         }
 
-        // ฟังก์ชันที่เกี่ยวข้องกับการทำงานของระบบ LIFF
-        const LIFF_ID = '2005629952-POXR9wLQ'; // Liff ID
 
-        window.onload = async function () {
-            await initializeLiff();
-        };
-
-        // เริ่มการทำงานของ LIFF
-        async function initializeLiff() {
-            try {
-                await liff.init({ liffId: `${LIFF_ID}` });
-                if (liff.isLoggedIn()) {
-                    getUserProfile();
-                } else {
-                    liff.login();
-                }
-            } catch (error) {
-                console.error('Error initializing LIFF:', error);
-            }
-        }
-
-        // ดึงข้อมูลโปรไฟล์ผู้ใช้จาก LIFF
-        async function getUserProfile() {
-            try {
-                const profile = await liff.getProfile();
-                const userId = profile.userId;
-                document.getElementById('userlineid').value = userId;
-                document.getElementById('displayName').value = profile.displayName;
-                document.getElementById('profileImage').src = profile.pictureUrl || '';
-
-                await fetchData(userId);
-            } catch (error) {
-                console.error('Error getting profile data:', error);
-            }
-        }
-
-        // ดึงข้อมูลสมาชิกจากเซิร์ฟเวอร์
-        async function fetchData(userId) {
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: 'fetchData', userId: userId })
-                });
-                const data = await response.json();
-
-                if (data) {
-                    displayData(data);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        // แสดงข้อมูลที่ดึงมาในฟอร์ม
-        function displayData(data) {
-            document.getElementById('username').value = data.Name || '';
-            document.getElementById('address').value = data.Address || '';
-            document.getElementById('contact').value = data.Contact || '';
-            document.getElementById('userPoints').innerHTML = data.Points || 0;
-        }
 
         goToCartBtn.addEventListener('click', showCart);
         backToProductsBtn.addEventListener('click', () => {
@@ -668,6 +652,7 @@
         });
         goToShippingBtn.addEventListener('click', showShippingInfo);
         backToCartBtn.addEventListener('click', backToCart);
+        shippingForm.addEventListener('submit', handleShippingFormSubmit);
         confirmOrderBtn.addEventListener('click', async () => {
             await saveOrder(currentOrder);
             cart = [];
@@ -681,6 +666,99 @@
         closeModalBtn.addEventListener('click', () => {
             orderDetailsModal.classList.add('hidden');
         });
+
+        const WEB_MEMBER_APP_URL = 'https://script.google.com/macros/s/AKfycbwUj-dHVIxyjvudRS0cykoLTNx_8mLYC6zlSyamLjQP_rD2bTM1BFCtnvFOPYeDCzOBxw/exec';
+        const LIFF_ID = '2005629952-POXR9wLQ'; // Liff ID
+
+        // เริ่มการทำงานเมื่อโหลดหน้าเว็บ
+        window.onload = async function () {
+            await initializeLiff();
+        };
+
+        // ฟังก์ชันสำหรับเริ่มการทำงานของ LIFF
+        async function initializeLiff() {
+            try {
+                await liff.init({ liffId: `${LIFF_ID}` }); // ใช้ Liff ID ของคุณ
+                if (liff.isLoggedIn()) {
+                    showLoading(true);
+                    getUserProfile();
+                } else {
+                    liff.login();
+                }
+            } catch (error) {
+                console.error('Error initializing LIFF:', error);
+            }
+        }
+
+        // ฟังก์ชันสำหรับดึงข้อมูลโปรไฟล์ผู้ใช้
+        async function getUserProfile() {
+            try {
+                const profile = await liff.getProfile();
+                const userId = profile.userId;
+                document.getElementById('userlineid').value = userId; // Store user ID
+                document.getElementById('displayName').value = profile.displayName;
+                document.getElementById('profileImage').src = profile.pictureUrl || DEFAULT_IMAGE_URL;
+
+                await fetchData(userId);
+            } catch (error) {
+                console.error('Error getting profile data:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function fetchData(userId) {
+            try {
+                const response = await fetch(WEB_MEMBER_APP_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'fetchData', userId: userId })
+                });
+                const data = await response.json();
+
+                // ตรวจสอบข้อมูลที่ดึงมา
+                console.log('Data fetched:', data);
+
+                if (data) { // Ensure that data is valid
+                    displayData(data);
+                } else {
+                    console.log('No data found for userId:', userId);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        function displayData(row) {
+            // ตรวจสอบข้อมูลที่ดึงมา
+            console.log('Displaying data:', row);
+
+            document.getElementById('username').value = row.Name || ''; // Name
+            document.getElementById('address').value = row.Address || '';  // Address
+            document.getElementById('contact').value = row.Contact || '';  // Contact
+            document.getElementById('userPoints').innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" color="#000000" fill="none">
+                    <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M12.8638 7.72209L13.7437 9.49644C13.8637 9.74344 14.1837 9.98035 14.4536 10.0257L16.0485 10.2929C17.0684 10.4643 17.3083 11.2103 16.5734 11.9462L15.3335 13.1964C15.1236 13.4081 15.0086 13.8164 15.0736 14.1087L15.4285 15.6562C15.7085 16.8812 15.0636 17.355 13.9887 16.7148L12.4939 15.8226C12.2239 15.6613 11.7789 15.6613 11.504 15.8226L10.0091 16.7148C8.93925 17.355 8.28932 16.8761 8.56929 15.6562L8.92425 14.1087C8.98925 13.8164 8.87426 13.4081 8.66428 13.1964L7.42442 11.9462C6.6945 11.2103 6.92947 10.4643 7.94936 10.2929L9.54419 10.0257C9.80916 9.98035 10.1291 9.74344 10.2491 9.49644L11.129 7.72209C11.609 6.7593 12.3889 6.7593 12.8638 7.72209Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg> ${row.Points || 0}`;
+
+        }
+
+        function showLoading(isLoading) {
+            const loadingContainer = document.getElementById('loading-container');
+            const formContainer = document.getElementById('form-container');
+            if (isLoading) {
+                loadingContainer.style.display = 'block';
+                formContainer.style.display = 'none';
+            } else {
+                loadingContainer.style.display = 'none';
+                formContainer.style.display = 'block';
+            }
+        }
+
+        window.onload = function () {
+            initializeLiff();
+            fetchProducts();
+        };
     </script>
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </body>
