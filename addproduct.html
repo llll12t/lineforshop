@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขสินค้า</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-orange-100 p-6">
+    <div class="max-w-5xl mx-auto py-10">
+        <form id="product-form">
+            <label for="file" class="block text-center bg-slate-100 p-4 rounded-md cursor-pointer hover:bg-slate-200 transition">
+                <input type="file" id="file" name="file" accept="image/*" class="hidden">
+                <span class="text-md text-slate-500">อัพโหลดรูป</span>
+                <div class="mx-auto w-24 h-24 mb-2 border rounded-lg relative bg-slate-100 shadow-inner overflow-hidden">
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        alt="Default Image" id="preview" class="w-full h-full object-cover rounded-lg">
+                </div>
+            </label>
+            <div class="bg-white rounded-lg p-6 flex flex-wrap items-center justify-between shadow-lg">
+                <div class="w-full md:w-1/2 ">
+                  
+                    <input type="text" class="input-field w-full border border-slate-300 my-2 p-3 text-md rounded-lg focus:ring focus:ring-blue-200"
+                        id="keyId" placeholder="Key ID (optional)" name="keyId">
+                    <input type="text" class="input-field w-full border border-slate-300 my-2 p-3 text-md rounded-lg focus:ring focus:ring-blue-200"
+                        id="name" placeholder="ชื่อสินค้า" name="name" required>
+                    <input type="text" class="input-field w-full border border-slate-300 my-2 p-3 text-md rounded-lg focus:ring focus:ring-blue-200"
+                        id="category" placeholder="หมวดหมู่" name="category" required>
+                </div>
+    
+                <div class="w-full md:w-1/2 pl-0 md:pl-4">
+                    <input type="text" class="input-field w-full border border-slate-300 my-2 p-3 text-md rounded-lg focus:ring focus:ring-blue-200"
+                        id="available" placeholder="Available (จำนวนที่มี)" name="available" required>
+                    <input type="number" class="input-field w-full border border-slate-300 my-2 p-3 text-md rounded-lg focus:ring focus:ring-blue-200"
+                        id="Price" placeholder="ราคา" name="Price" required>
+                    <button type="button" id="submitBtn"
+                        class="w-full bg-slate-800 text-center text-white py-3 rounded-lg hover:bg-blue-700 transition my-2">บันทึกข้อมูลสินค้า</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+    <div class="max-w-5xl m-auto">
+        <table id="data-table" class="min-w-full text-xs bg-white rounded-md mt-4">
+            <thead>
+                <tr class="text-slate-800 text-sm">
+                    <th class="py-2 px-4 border-b w-8">ID</th>
+                    <th class="py-2 px-4 border-b w-16">รูปภาพ</th>
+                    <th class="py-2 px-4 text-left border-b w-64">ชื่อสินค้า</th>
+                    <th class="py-2 px-4 text-left border-b">หมวดหมู่</th>
+                    <th class="py-2 px-4 text-left border-b">Available</th>
+                    <th class="py-2 px-4 text-left border-b">ราคา</th>
+                    <th class="py-2 px-4 text-center border-b">Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm">
+                <!-- Data will be populated here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxhLX9cdM0872Myxbb4_fHKhAUG8giAUx2oZ_88hIoyv3Sh4t-moSX8ZRtHzq2eK0_D/exec';
+        let tableData = [];
+
+        // Function to convert file to Base64
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                let reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Function to preview image when a file is selected
+        function previewImage() {
+            const fileInput = document.getElementById('file');
+            const imgPreview = document.getElementById('preview');
+            if (fileInput.files.length > 0) {
+                let file = fileInput.files[0];
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imgPreview.src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+            }
+        }
+
+        document.getElementById('file').addEventListener('change', previewImage);
+
+        // Validate required fields
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const category = document.getElementById('category').value.trim();
+            const available = document.getElementById('available').value.trim();
+            const Price = document.getElementById('Price').value.trim();
+
+            return !(name === '' || category === '' || available === '' || Price === '');
+        }
+
+        // Show confirmation dialog before submitting data
+        async function showConfirmationDialog() {
+            const confirmation = await Swal.fire({
+                title: 'ยืนยันการส่งข้อมูล',
+                text: 'แน่ใจ ว่าคุณต้องการบันทึกข้อมูลนี้?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'ใช่, ส่งข้อมูล!',
+                cancelButtonText: 'ไม่, ยกเลิก'
+            });
+
+            return confirmation.isConfirmed;
+        }
+
+        // Submit form and save data
+        document.getElementById('submitBtn').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            if (!validateForm()) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'กรุณากรอกข้อมูลในช่องที่จำเป็น.',
+                });
+                return;
+            }
+
+            const isConfirmed = await showConfirmationDialog();
+
+            if (isConfirmed) {
+                document.getElementById('submitBtn').disabled = true;
+
+                try {
+                    let obj = {};
+                    const fileInput = document.getElementById('file');
+
+                    // If no new image is uploaded, retain the existing one
+                    if (fileInput.files.length > 0) {
+                        let file = fileInput.files[0];
+                        let base64 = await getBase64(file);
+                        obj.base64 = base64;
+                    } else {
+                        obj.imageUrl = document.getElementById('preview').src;
+                    }
+
+                    obj.keyId = document.getElementById('keyId').value;
+                    obj.name = document.getElementById('name').value;
+                    obj.category = document.getElementById('category').value;
+                    obj.available = document.getElementById('available').value;
+                    obj.Price = document.getElementById('Price').value;
+
+                    Swal.fire({
+                        title: 'กำลังบันทึก, รอสักครู่...',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        html: '<div class="swal2-loading"></div>',
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    let response = await fetch(WEB_APP_URL, {
+                        method: "POST",
+                        body: JSON.stringify(obj)
+                    });
+
+                    let data = await response.text();
+
+                    Swal.fire({
+                        title: 'สำเร็จ!',
+                        text: 'บันทึกข้อมูลสินค้าของคุณเรียบร้อย!',
+                        icon: 'success',
+                        confirmButtonText: 'ปิด',
+                    });
+
+                    clearForm();
+                    fetchData(); // Refresh table data after saving
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'เกิดข้อผิดพลาดขณะส่งข้อมูล.',
+                    });
+                    console.error(error);
+                } finally {
+                    document.getElementById('submitBtn').disabled = false;
+                }
+            } else {
+                Swal.fire('Submission Canceled', 'ข้อมูลของคุณไม่ได้ถูกส่ง.', 'info');
+            }
+        });
+
+        // Clear form
+        function clearForm() {
+            document.getElementById('file').value = '';
+            document.getElementById('preview').src = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+            document.getElementById('keyId').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('category').value = '';
+            document.getElementById('available').value = '';
+            document.getElementById('Price').value = '';
+        }
+
+        // Fetch data from Google Sheets
+        async function fetchData() {
+            const response = await fetch(WEB_APP_URL);
+            const data = await response.json();
+            tableData = data.slice(1); // Assuming the first row is the header
+            displayTable(tableData);
+        }
+
+        // Display data in the table
+        function displayTable(data) {
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            data.forEach((row) => {
+                const tr = document.createElement('tr');
+
+                // ID
+                const idTd = document.createElement('td');
+                idTd.textContent = row[0];
+                idTd.className = 'py-2 px-4 border-b';
+                tr.appendChild(idTd);
+
+                // Image
+                const imgTd = document.createElement('td');
+                if (row[1]) {
+                    const img = document.createElement('img');
+                    img.src = row[1];
+                    img.className = 'h-10 w-10 object-cover';
+                    imgTd.appendChild(img);
+                }
+                imgTd.className = 'py-2 px-4 border-b';
+                tr.appendChild(imgTd);
+
+                // Name, Category, Available, Price
+                const fields = [2, 3, 4, 5];
+                fields.forEach(index => {
+                    const td = document.createElement('td');
+                    td.textContent = row[index];
+                    td.className = 'py-2 px-4 border-b';
+                    tr.appendChild(td);
+                });
+
+                // Action buttons (Edit and Delete)
+                const actionTd = document.createElement('td');
+                actionTd.className = 'py-2 px-4 border-b flex space-x-2 justify-center';
+
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.className = 'bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700';
+                editBtn.onclick = () => openEditModal(row);
+                actionTd.appendChild(editBtn);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.className = 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700';
+                deleteBtn.onclick = () => confirmDelete(row[0]);
+                actionTd.appendChild(deleteBtn);
+
+                tr.appendChild(actionTd);
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Function to open modal for editing
+        function openEditModal(row) {
+            // Populate form with data for editing
+            document.getElementById('keyId').value = row[0];
+            document.getElementById('name').value = row[2];
+            document.getElementById('category').value = row[3];
+            document.getElementById('available').value = row[4];
+            document.getElementById('Price').value = row[5];
+
+            // Update image preview
+            document.getElementById('preview').src = row[1] || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+        }
+
+        // Function to confirm delete
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteData(id);
+                }
+            });
+        }
+
+        // Function to delete data
+        async function deleteData(id) {
+            const response = await fetch(WEB_APP_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `method=deleteData&id=${id}`
+            });
+            const result = await response.text();
+            Swal.fire({
+                title: 'Deleted',
+                text: result,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            fetchData(); // Refresh table data
+        }
+
+        window.onload = fetchData;
+
+    </script>
+</body>
+</html>
